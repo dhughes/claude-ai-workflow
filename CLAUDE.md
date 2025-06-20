@@ -88,3 +88,31 @@ For each action, think through:
 - Am I following all rule requirements?
 </thinking>
 </critical_instructions>
+
+## ⚠️ CRITICAL: Plan Mode and Git Rules ⚠️
+
+<plan_mode_warning>
+**PLAN MODE DOES NOT EXEMPT YOU FROM GIT WORKFLOW RULES!**
+
+When creating plans that involve file operations:
+1. Plans MUST include explicit git branching steps
+2. Branch creation MUST be listed BEFORE any file operations
+3. Git workflow rules apply during AND after plan mode
+
+When executing approved plans:
+1. FIRST command must be `git branch --show-current`
+2. If on main branch, create feature branch BEFORE any file operations
+3. NEVER create or edit files while on main branch
+
+**Common Violation Pattern to Avoid:**
+- Creating a plan for file operations ❌
+- Getting plan approved ❌
+- Immediately creating files without branching ❌
+- Realizing git rules were violated after the fact ❌
+
+**Correct Pattern:**
+- Create plan WITH git branching steps ✓
+- Get plan approved ✓
+- Check branch as FIRST action ✓
+- Create branch if needed BEFORE file operations ✓
+</plan_mode_warning>
