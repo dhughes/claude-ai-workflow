@@ -26,7 +26,9 @@
       "WebFetch(domain:cbea.ms)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git checkout:*)",
+      "WebFetch(domain:docs.github.com)"
     ],
     "deny": []
   }
