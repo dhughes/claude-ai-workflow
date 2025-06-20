@@ -22,7 +22,7 @@ Before merging any pull request, you MUST verify BOTH conditions:
 
 Verification steps:
 1. CHECK that human has clearly stated "approved" or "merge this PR"
-2. RUN `gh pr status [PR-number]` to check GitHub approval status
+2. RUN `gh pr view [PR-number]` to check GitHub approval status
 3. CONFIRM both approvals exist before proceeding with merge
 4. ONLY merge when both conditions are satisfied
 
@@ -37,7 +37,7 @@ If either condition is missing, do NOT merge.
 - "LGTM, merge it"
 
 **GitHub Status Check:**
-Use `gh pr status [PR-number]` to verify:
+Use `gh pr view [PR-number]` to verify:
 - PR shows as "approved" in status
 - All required checks are passing
 - No blocking reviews or requests for changes
@@ -50,16 +50,16 @@ Use `gh pr status [PR-number]` to verify:
 
 <examples>
 <correct>
-Human says "PR #1 is approved" AND gh pr status shows approved:
+Human says "PR #1 is approved" AND gh pr view shows approved:
 ```bash
-gh pr status 1
+gh pr view 1
 # Output shows: ✓ Approved by reviewers
 # Safe to proceed with merge
 ```
 
 Human says "Please merge the authentication PR" AND GitHub shows approval:
 ```bash
-gh pr status 1
+gh pr view 1
 # Output shows: ✓ All checks passed, ✓ Approved
 # Safe to proceed with merge
 ```
@@ -75,7 +75,7 @@ Human: "This PR looks good, merge it"
 
 Only GitHub approval:
 ```bash
-gh pr status 1
+gh pr view 1
 # Output: ✓ Approved
 # Missing: Explicit human approval statement
 # Action: Do NOT merge, wait for human approval
@@ -91,14 +91,14 @@ Human: "The code looks fine"
 </examples>
 
 <verification_commands>
-Check PR status:
-```bash
-gh pr status [PR-number]
-```
-
-Check specific PR details:
+Check specific PR details and approval status:
 ```bash
 gh pr view [PR-number]
+```
+
+Check general PR status (no PR number argument):
+```bash
+gh pr status
 ```
 
 List all PRs with status:
