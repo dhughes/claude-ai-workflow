@@ -1,0 +1,22 @@
+{
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(gh:*)",
+      "Bash(gh:*)",
+      "Bash(find:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(swiftformat:*)",
+      "Bash(xcrun:*)",
+      "Bash(rg:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(rmdir:*)",
+      "Bash(grep:*)",
+      "Bash(gh pr create:*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:ghuntley.com)"
+    ],
+    "deny": []
+  }
+}
