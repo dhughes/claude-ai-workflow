@@ -15,7 +15,12 @@
       "Bash(grep:*)",
       "Bash(gh pr create:*)",
       "Bash(ls:*)",
-      "WebFetch(domain:ghuntley.com)"
+      "WebFetch(domain:ghuntley.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.anthropic.com)"
     ],
     "deny": []
   }

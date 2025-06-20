@@ -9,33 +9,79 @@ summary: "Only create rule files in .claude/rules/ directory"
 
 # Rule: Only Create Rules in Claude Rules Directory
 
-## Description
+<purpose>
+This rule enforces a single, consistent location for all rule files to ensure reliable rule discovery and prevent fragmentation of the rules system across the codebase.
+</purpose>
 
-Rule files must ONLY be created in the `.claude/rules/` directory. No rule files should exist anywhere else in the project structure.
+<thinking>
+Before creating any rule file, I need to verify:
+1. Is this a rule file (ends with .rule.md)?
+2. Am I attempting to create it in the correct directory?
+3. Is the full path exactly `.claude/rules/[filename].rule.md`?
+</thinking>
 
-## Requirements
-
+<instructions>
 When creating a new rule file:
 
-1. **Location**: The file MUST be created in `.claude/rules/`
-2. **Path**: The full path must be `.claude/rules/[rule-name].rule.md`
-3. **No Subdirectories**: Rules should be created directly in `.claude/rules/`, not in subdirectories
+1. ALWAYS use the path `.claude/rules/` as the directory
+2. NEVER create subdirectories within `.claude/rules/`
+3. NEVER place rule files anywhere else in the project
+4. REJECT any attempt to create rule files outside this location
+</instructions>
 
-## Rejected Actions
+<validation_checks>
+<check>File extension MUST be `.rule.md`</check>
+<check>Directory path MUST be exactly `.claude/rules/`</check>
+<check>No subdirectories allowed within rules directory</check>
+<check>Full path pattern: `.claude/rules/[domain]-[context]-[action].rule.md`</check>
+</validation_checks>
 
-The following actions will be rejected:
-- Creating a rule file in the project root
-- Creating a rule file in any other directory
-- Creating rule subdirectories within `.claude/rules/`
+<examples>
+<correct>
+<example>
+Path: `.claude/rules/testing-rspec-always-use-four-phase-structure.rule.md`
+Reason: Correct directory and naming pattern
+</example>
 
-## Valid Examples
+<example>
+Path: `.claude/rules/git-commits-always-sign-commits.rule.md`
+Reason: Correct directory and naming pattern
+</example>
 
-✅ `.claude/rules/testing-rspec-always-use-four-phase-structure.rule.md`
-✅ `.claude/rules/git-commits-always-sign-commits.rule.md`
+<example>
+Path: `.claude/rules/workflow-pr-never-merge-without-approval.rule.md`
+Reason: Correct directory and naming pattern
+</example>
+</correct>
 
-## Invalid Examples
+<incorrect>
+<example>
+Path: `rules/testing-rspec-structure.rule.md`
+Reason: Wrong directory - must be in .claude/rules/
+Action: REJECT - Ask user to specify correct path
+</example>
 
-❌ `rules/testing-rspec-always-use-four-phase-structure.rule.md`
-❌ `.claude/testing-rules/rspec-structure.rule.md`
-❌ `testing-rspec-always-use-four-phase-structure.rule.md`
-❌ `.claude/rules/testing/rspec-structure.rule.md`
+<example>
+Path: `.claude/testing-rules/rspec-structure.rule.md`
+Reason: Wrong directory structure - rules must be in .claude/rules/
+Action: REJECT - Rules cannot be in subdirectories
+</example>
+
+<example>
+Path: `testing-rspec-structure.rule.md`
+Reason: No directory specified - must be in .claude/rules/
+Action: REJECT - Must use full path
+</example>
+
+<example>
+Path: `.claude/rules/testing/rspec-structure.rule.md`
+Reason: Subdirectories not allowed within .claude/rules/
+Action: REJECT - Keep rules flat in .claude/rules/
+</example>
+</incorrect>
+</examples>
+
+<rejection_message>
+When rejecting invalid rule creation:
+"Rule files MUST be created in `.claude/rules/` directory. Please use the path `.claude/rules/[domain]-[context]-[action].rule.md`"
+</rejection_message>
