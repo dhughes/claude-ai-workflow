@@ -4,8 +4,8 @@ applies_to:
   - contexts: ["gh", "github", "pr", "review"]
   - actions: ["reviewing_pr"]
 timing: "before"
-summary: "Always fetch PR description, files, and context before starting review"
-version: "1.0.0"
+summary: "MANDATORY: Always fetch PR description, files, and context before starting review - NO EXCEPTIONS"
+version: "1.1.0"
 ---
 
 # Rule: Always Fetch PR Details First
@@ -15,6 +15,8 @@ This rule ensures that before conducting any PR review, all necessary context is
 </purpose>
 
 <instructions>
+**🚨 MANDATORY EXECUTION - NO BYPASSING ALLOWED 🚨**
+
 Before reviewing any PR, you MUST gather this information in sequence:
 
 1. **Fetch PR metadata**: Use `gh api repos/:owner/:repo/pulls/{number}` to get:
@@ -35,7 +37,14 @@ Before reviewing any PR, you MUST gather this information in sequence:
    - Any special testing or deployment considerations
    - Related issues or dependencies
 
-This context gathering is MANDATORY before making any review comments.
+**THIS CONTEXT GATHERING IS STRICTLY MANDATORY - NEVER SKIP OR BYPASS**
+
+❌ **STRICTLY FORBIDDEN:** Starting review without gathering full context
+❌ **STRICTLY FORBIDDEN:** Making assumptions about PR content
+❌ **STRICTLY FORBIDDEN:** Proceeding to comments without API data
+❌ **STRICTLY FORBIDDEN:** Providing any feedback before data collection
+
+✅ **REQUIRED:** Complete information gathering before ANY review activity
 </instructions>
 
 <context_requirements>
