@@ -22,7 +22,9 @@
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:docs.anthropic.com)",
       "Bash(awk:*)",
-      "Bash(.claude/index-rules.sh:*)"
+      "Bash(.claude/index-rules.sh:*)",
+      "WebFetch(domain:cbea.ms)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
