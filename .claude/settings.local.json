@@ -24,12 +24,8 @@
       "Bash(awk:*)",
       "Bash(.claude/index-rules.sh:*)",
       "WebFetch(domain:cbea.ms)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(git checkout:*)",
-      "WebFetch(domain:docs.github.com)",
-      "Bash(git rebase:*)"
+      "Bash(git:*)",
+      "WebFetch(domain:docs.github.com)"
     ],
     "deny": []
   }
