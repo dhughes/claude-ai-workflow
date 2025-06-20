@@ -5,6 +5,7 @@ applies_to:
   - actions: ["creating"]
 timing: "before"
 summary: "Only create rule files in .claude/rules/ directory"
+version: "1.0.0"
 ---
 
 # Rule: Only Create Rules in Claude Rules Directory

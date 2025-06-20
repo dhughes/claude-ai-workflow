@@ -5,6 +5,7 @@ applies_to:
   - actions: ["creating"]
 timing: "before"
 summary: "Rule filenames must follow [domain]-[context]-[directive-action].rule.md pattern"
+version: "1.0.0"
 ---
 
 # Rule: Always Follow Domain-Context-Action Pattern for Rule Names

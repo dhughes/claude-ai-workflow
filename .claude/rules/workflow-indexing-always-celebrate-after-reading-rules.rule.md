@@ -5,6 +5,7 @@ applies_to:
   - actions: ["after_indexing"]
 timing: "after"
 summary: "Always celebrate with emojis after successfully indexing rules"
+version: "1.0.0"
 ---
 
 # Rule: Always Celebrate After Reading Rules

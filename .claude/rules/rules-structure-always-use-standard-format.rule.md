@@ -5,6 +5,7 @@ applies_to:
   - actions: ["creating", "editing"]
 timing: "before"
 summary: "Always structure rules with YAML frontmatter followed by detailed content"
+version: "1.0.0"
 ---
 
 # Rule: Always Use Standard Format for Rules
@@ -33,6 +34,7 @@ applies_to:
   - actions: [array of triggering actions like "creating", "editing", "after_commit", etc.]
 timing: "before" | "after" | "both"
 summary: "One-line description of what the rule enforces"
+version: "semantic version number following semver (e.g. 1.0.0)"
 ---
 </frontmatter>
 
@@ -73,6 +75,7 @@ applies_to:
   - actions: ["editing", "creating"]
 timing: "before"
 summary: "Example rule showing correct structure (not an actual rule)"
+version: "1.0.0"
 ---
 
 # Rule: Example Rule Title
@@ -95,6 +98,7 @@ applies_to:
   - actions: ["after_commit"]
 timing: "after"
 summary: "Example of non-file-specific rule (not an actual rule)"
+version: "1.0.0"
 ---
 
 # Rule: Example Context-Only Rule
@@ -111,7 +115,7 @@ applies_to:
   - contexts: ["git"]
 timing: "before"
 ---
-(Missing: file_patterns field even if empty, summary)
+(Missing: file_patterns field even if empty, summary, version)
 
 Or invalid structure without XML tags:
 # Rule Title
