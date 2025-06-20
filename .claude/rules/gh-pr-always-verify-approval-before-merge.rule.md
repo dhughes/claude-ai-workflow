@@ -5,7 +5,7 @@ applies_to:
   - actions: ["before_merging_pr"]
 timing: "before"
 summary: "Always verify both human approval and GitHub status before merging any PR"
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # Rule: Always Verify Approval Before Merge
@@ -20,13 +20,14 @@ Before merging any pull request, you MUST verify BOTH conditions:
 1. **Human Approval**: The human has explicitly stated the PR is approved
 2. **GitHub Status**: GitHub shows the PR as approved in its system
 
-Verification steps:
+**MANDATORY Verification steps:**
 1. CHECK that human has clearly stated "approved" or "merge this PR"
-2. RUN `gh pr view [PR-number]` to check GitHub approval status
-3. CONFIRM both approvals exist before proceeding with merge
-4. ONLY merge when both conditions are satisfied
+2. **ALWAYS RUN** `gh pr view [PR-number]` to check GitHub approval status
+3. **LOOK FOR** explicit approval indicators in the output (reviewers section showing "Approved")
+4. **CONFIRM both approvals exist** before proceeding with merge
+5. **REFUSE TO MERGE** if either condition is missing
 
-If either condition is missing, do NOT merge.
+**CRITICAL:** Running `gh pr view` is MANDATORY, not optional. You MUST see GitHub approval confirmation, not just human approval.
 </instructions>
 
 <approval_verification>
@@ -36,16 +37,18 @@ If either condition is missing, do NOT merge.
 - "Approved, go ahead and merge"
 - "LGTM, merge it"
 
-**GitHub Status Check:**
-Use `gh pr view [PR-number]` to verify:
-- PR shows as "approved" in status
+**GitHub Status Check (MANDATORY):**
+You MUST run `gh pr view [PR-number]` and verify:
+- **Reviewers section shows "Approved"** (e.g., "dhughes (Approved)")
 - All required checks are passing
 - No blocking reviews or requests for changes
+- No "Changes requested" status
 
-**Both Must Be Present:**
+**Both Must Be Present - NO EXCEPTIONS:**
 - Human approval alone is NOT sufficient
-- GitHub approval alone is NOT sufficient
+- GitHub approval alone is NOT sufficient  
 - Both are required for merge authorization
+- **If you skip GitHub verification, you are violating this rule**
 </approval_verification>
 
 <examples>
@@ -53,30 +56,40 @@ Use `gh pr view [PR-number]` to verify:
 Human says "PR #1 is approved" AND gh pr view shows approved:
 ```bash
 gh pr view 1
-# Output shows: ✓ Approved by reviewers
-# Safe to proceed with merge
+# Output shows: reviewers: dhughes (Approved)
+# BOTH conditions met - safe to proceed with merge
 ```
 
 Human says "Please merge the authentication PR" AND GitHub shows approval:
 ```bash
 gh pr view 1
-# Output shows: ✓ All checks passed, ✓ Approved
-# Safe to proceed with merge
+# Output shows: reviewers: alice (Approved), bob (Approved)
+# BOTH conditions met - safe to proceed with merge
 ```
 </correct>
 
 <incorrect>
-Only human approval:
+Only human approval (RULE VIOLATION):
 ```
 Human: "This PR looks good, merge it"
-# Missing: GitHub approval verification
-# Action: Do NOT merge, check GitHub status first
+# Missing: GitHub approval verification with gh pr view
+# Action: REFUSE to merge, must run gh pr view first
+# Violation: Skipped mandatory GitHub verification step
+```
+
+Human approval but no GitHub approval:
+```bash
+Human: "your PR is approved!"
+gh pr view 3
+# Output shows: reviewers: (no approvals listed)
+# Action: Do NOT merge, GitHub shows no approval
+# Required: Wait for actual GitHub approval
 ```
 
 Only GitHub approval:
 ```bash
 gh pr view 1
-# Output: ✓ Approved
+# Output shows: reviewers: alice (Approved)
 # Missing: Explicit human approval statement
 # Action: Do NOT merge, wait for human approval
 ```
@@ -86,6 +99,13 @@ Unclear human statement:
 Human: "The code looks fine"
 # Not explicit approval
 # Action: Do NOT merge, ask for clear approval
+```
+
+**CRITICAL VIOLATION EXAMPLE:**
+```bash
+Human: "your PR is approved!"
+# Claude merges without running gh pr view
+# This is a VIOLATION - must always check GitHub status
 ```
 </incorrect>
 </examples>
@@ -123,4 +143,32 @@ If verification fails:
 - Missing GitHub approval → Do not merge, check what's blocking
 - Unclear approval status → Ask for clarification
 - Failed checks → Wait for checks to pass before merge consideration
+
+**RULE VIOLATION CONSEQUENCES:**
+If you merge without running `gh pr view` to verify GitHub approval:
+1. You have VIOLATED this rule
+2. Acknowledge the violation immediately
+3. Explain what should have been done differently
+4. Commit to following the rule correctly in the future
 </failure_actions>
+
+<enforcement>
+**MANDATORY REQUIREMENTS:**
+- Running `gh pr view [PR-number]` is NOT optional
+- You MUST see "reviewers: [username] (Approved)" in the output
+- Human approval alone is NEVER sufficient for merge
+- This rule has NO EXCEPTIONS
+
+**VIOLATION DETECTION:**
+You have violated this rule if you:
+- Merge a PR based only on human approval
+- Skip running `gh pr view` before merge
+- Merge when GitHub shows no approvals
+- Ignore the reviewers section in `gh pr view` output
+
+**COMPLIANCE CHECK:**
+Before every merge, ask yourself:
+- Did I run `gh pr view [PR-number]`?
+- Did I see explicit approval in the reviewers section?
+- Did I have both human AND GitHub approval?
+</enforcement>
