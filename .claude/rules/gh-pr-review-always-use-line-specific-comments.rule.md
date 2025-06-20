@@ -17,6 +17,8 @@ This rule ensures that technical feedback is placed directly on the relevant cod
 <instructions>
 When providing code review feedback, ALWAYS use line-specific comments:
 
+**CRITICAL: Before posting any comment, you MUST verify the target line content using search/read tools. Never guess line numbers!**
+
 1. **Individual Line Comments**: For single-line issues:
    ```bash
    gh api repos/:owner/:repo/pulls/{number}/comments -X POST \
@@ -49,6 +51,18 @@ When providing code review feedback, ALWAYS use line-specific comments:
    ```
 
 4. **NEVER use general PR comments** for specific code issues - always tie feedback to exact lines.
+
+**Line Content Verification Workflow:**
+```bash
+# STEP 1: Search for the content you want to comment on
+Grep pattern="specific_content_pattern" path="target/file.ext"
+
+# STEP 2: Verify the line numbers and read context
+Read file_path="target/file.ext" offset=[found_line - 3] limit=7
+
+# STEP 3: Confirm the content matches your comment intent
+# STEP 4: ONLY THEN post the comment with verified line numbers
+```
 </instructions>
 
 <api_parameters>
