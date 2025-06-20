@@ -5,7 +5,7 @@ applies_to:
   - actions: ["before_merge"]
 timing: "before"
 summary: "STRICTLY FORBIDDEN: Never merge directly to main branch - main can only be updated via PR merges"
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # Rule: Never Merge Directly to Main Branch
@@ -23,6 +23,13 @@ You are ABSOLUTELY FORBIDDEN from performing direct merges to main branch:
 4. **Main branch MUST only receive updates through approved PR merges via GitHub**
 
 🚨 **ZERO TOLERANCE POLICY** - This rule has NO EXCEPTIONS WHATSOEVER for direct merges
+
+**When this rule applies, simply REFUSE and STOP:**
+- Do NOT research alternatives
+- Do NOT offer to create PRs
+- Do NOT check branch status
+- Do NOT analyze commits
+- Simply state: "I cannot merge directly to main branch. Main can only be updated via GitHub PR merges."
 </instructions>
 
 <forbidden_merge_actions>
@@ -62,11 +69,26 @@ gh pr merge [PR-number] --squash  # ✅ GitHub PR merge
 **VIOLATION CONSEQUENCES:**
 If you attempt to merge directly to main:
 1. STOP immediately
-2. Acknowledge the violation
-3. Create proper PR for the changes
-4. Follow GitHub PR merge workflow
-5. Never repeat the violation
+2. State: "I cannot merge directly to main branch. Main can only be updated via GitHub PR merges."
+3. Do NOT provide additional help or alternatives
+4. Do NOT research the situation further
+5. Simply refuse and end the interaction
 </enforcement>
+
+<response_template>
+When a direct merge to main is requested, use this EXACT response:
+
+"I cannot merge directly to main branch. Main can only be updated via GitHub PR merges."
+
+**Do NOT add:**
+- Explanations of why
+- Offers to help create PRs
+- Branch analysis or commit checking
+- Alternative suggestions
+- Research into current state
+
+**Just refuse and stop.**
+</response_template>
 
 <prevention_checks>
 Before ANY merge operation, verify:
@@ -78,7 +100,14 @@ Before ANY merge operation, verify:
 
 <examples>
 <correct>
-Proper update workflow for main:
+When user requests direct merge to main:
+```
+User: "Merge the current branch to main"
+Claude: "I cannot merge directly to main branch. Main can only be updated via GitHub PR merges."
+# STOP - no additional help offered
+```
+
+Proper update workflow for main (when appropriate):
 ```bash
 # Work is done on feature branch
 git checkout feature/auth-system
@@ -92,43 +121,25 @@ gh pr create --title "Add authentication system"
 # Merge via GitHub PR (only way to update main)
 gh pr merge 1 --squash
 ```
-
-Hotfix workflow:
-```bash
-git checkout -b hotfix/critical-bug
-git commit -m "Fix critical security issue"
-git push -u origin hotfix/critical-bug
-
-# Even urgent fixes go through PR process
-gh pr create --title "URGENT: Fix critical security bug"
-# Get expedited approval...
-gh pr merge 2 --squash  # Updates main via PR
-```
 </correct>
 
 <incorrect>
-Direct merge to main:
+Being too helpful after refusing:
+```
+User: "Merge the current branch to main"
+Claude: "I cannot merge directly to main branch. According to the rules..."
+# ❌ WRONG - provides long explanation
+# ❌ WRONG - checks branch status
+# ❌ WRONG - offers to create PR
+# ❌ WRONG - analyzes commits
+```
+
+Direct merge operations:
 ```bash
 git checkout main
 git merge feature/new-api  # ❌ VIOLATION - direct merge to main
-```
-
-Fast-forward merge to main:
-```bash
-git checkout main
 git merge --ff-only hotfix/bug  # ❌ VIOLATION - still direct merge
-```
-
-Squash merge to main:
-```bash
-git checkout main
 git merge --squash feature/ui  # ❌ VIOLATION - direct merge operation
-```
-
-Emergency direct merge:
-```bash
-git checkout main
-git merge hotfix/urgent  # ❌ VIOLATION - no exceptions for urgency
 ```
 </incorrect>
 </examples>
