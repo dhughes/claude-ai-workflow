@@ -4,8 +4,8 @@ applies_to:
   - contexts: ["rules", "meta", "design", "validation"]
   - actions: ["creating"]
 timing: "before"
-summary: "Enforce single responsibility principle - each rule has one condition and one outcome"
-version: "1.0.0"
+summary: "STRICTLY enforce single responsibility - each rule has exactly ONE action and ONE outcome"
+version: "2.0.0"
 ---
 
 # Rule: Always Enforce Single Responsibility in Rule Design
@@ -20,8 +20,12 @@ Before creating ANY new rule, you MUST validate that it follows single responsib
 1. ANALYZE the proposed rule for:
    - Multiple conditions (if X OR if Y)
    - Multiple outcomes (do A, but if Z then do B)
+   - Multiple actions in applies_to (["action1", "action2"])
+   - Multiple git operations (commit AND push)
+   - Multiple file operations (create AND edit)
    - Complex branching logic within a single rule
    - Multiple unrelated contexts or actions
+   - Any use of "AND" or "OR" in rule summaries
 
 2. IF the rule violates single responsibility:
    - STOP immediately - do not create the rule
@@ -50,6 +54,11 @@ A rule violates single responsibility when:
 - It mixes multiple unrelated contexts
 - It tries to handle variations of a topic in one rule
 - It requires complex decision trees within the rule
+- It lists multiple actions in applies_to (e.g., ["before_commit", "before_push"])
+- It handles multiple git operations (commit AND push)
+- It handles multiple file operations (create AND edit)
+- The summary contains "and" connecting different actions
+- It tries to enforce multiple different behaviors
 </single_responsibility_criteria>
 
 <examples>
@@ -71,6 +80,11 @@ A rule violates single responsibility when:
 </good_single_responsibility>
 
 <bad_multiple_responsibility>
+❌ "Never commit or push directly to main branch"
+- Multiple actions: commit AND push
+- Multiple git operations: mixing commit and push concerns
+- Multiple enforcement points: before_commit AND before_push
+
 ❌ "Use --author for commits, but if on main branch create new branch first, and if pushing then set upstream"
 - Multiple conditions: commits, main branch, pushing
 - Multiple outcomes: attribution, branching, upstream
@@ -85,6 +99,10 @@ A rule violates single responsibility when:
 - Multiple conditions: after work, network status, branch type
 - Multiple outcomes: commit, conditional push, conditional PR
 - Multiple topics: mixing commit, push, and PR workflows
+
+❌ "Create or edit files only on feature branches"
+- Multiple actions: create AND edit
+- Should be separate rules for each operation
 </bad_multiple_responsibility>
 
 <violation_response>
