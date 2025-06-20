@@ -21,7 +21,7 @@ YOU MUST FOLLOW THESE INSTRUCTIONS ON EVERY INTERACTION:
 
 1. IMMEDIATELY run this command as your VERY FIRST action:
 ```bash
-awk '/^---$/{if(f){print "---"} f=!f; if(f){print "file: " FILENAME} next} f{print}' .claude/rules/*.rule.md
+.claude/index-rules.sh
 ```
 
 2. This is NOT optional - it is MANDATORY on EVERY first prompt

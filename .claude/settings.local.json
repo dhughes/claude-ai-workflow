@@ -20,7 +20,9 @@
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:docs.anthropic.com)",
-      "WebFetch(domain:docs.anthropic.com)"
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(awk:*)",
+      "Bash(.claude/index-rules.sh:*)"
     ],
     "deny": []
   }
