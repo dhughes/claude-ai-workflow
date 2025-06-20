@@ -4,14 +4,14 @@ applies_to:
   - contexts: ["git", "branching", "workflow"]
   - actions: ["before_creating_files", "before_editing_files"]
 timing: "before"
-summary: "Automatically create a new git branch when starting file modifications on main branch"
-version: "1.0.0"
+summary: "MANDATORY: Create new git branch before ANY file modifications on main - NEVER skip this step"
+version: "2.0.0"
 ---
 
 # Rule: Always Create Branch Before File Modifications
 
 <purpose>
-This rule ensures that all file creation and editing work is done on feature branches rather than directly on the main branch, maintaining clean git history and enabling proper code review workflows.
+This rule MANDATORILY ensures that all file creation and editing work is done on feature branches rather than directly on the main branch, maintaining clean git history and enabling proper code review workflows. This rule CANNOT be skipped or ignored under any circumstances.
 </purpose>
 
 <instructions>
@@ -24,6 +24,8 @@ Before creating OR editing any files, you MUST:
    - Include context about the changes being made
 3. SWITCH to the new branch before making any file modifications
 4. NEVER create or edit files directly on the main branch
+
+⚠️ CRITICAL: This rule is MANDATORY and has NO EXCEPTIONS. If you start creating or editing files on main branch, you are VIOLATING this rule and must STOP IMMEDIATELY.</instructions>
 
 Branch naming format: `[category]/[descriptive-name]`
 
@@ -146,10 +148,22 @@ Do NOT create branches when:
 
 <validation>
 Before any file creation or editing, verify:
-- [ ] Current branch has been checked
-- [ ] If on main/master, new branch has been created
+- [ ] Current branch has been checked with `git branch --show-current`
+- [ ] If on main/master, new branch has been created BEFORE any file changes
 - [ ] Branch name follows category/description format
 - [ ] Branch name is descriptive of the work being done
 - [ ] Successfully switched to the new branch
 - [ ] Ready to proceed with file modifications
+
+🚨 VIOLATION DETECTION: If you find yourself creating or editing files while on main branch, you have VIOLATED this rule. STOP immediately and create the branch before continuing.
 </validation>
+
+<enforcement>
+This rule is STRICTLY ENFORCED:
+- NO exceptions for "quick fixes" or "small changes"
+- NO exceptions for "it's just one file"
+- NO exceptions for urgent work
+- NO exceptions for rule files or any other file types
+- ALWAYS create branches, even for minor modifications
+- If caught violating this rule, immediately stop and correct the violation
+</enforcement>
