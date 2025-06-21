@@ -4,14 +4,14 @@ applies_to:
   - contexts: ["gh", "github", "pr", "review", "comments"]
   - actions: ["reviewing_pr"]
 timing: "during"
-summary: "Use line-specific GitHub API comments with verified content targeting for all technical feedback"
+summary: "Choose appropriate comment type - line-specific for code issues, general for overarching feedback"
 version: "1.0.0"
 ---
 
-# Rule: Always Use Accurate Line-Specific Comments
+# Rule: Always Choose Appropriate Comment Type
 
 <purpose>
-This rule ensures that technical feedback is placed accurately on relevant code lines using GitHub's line-specific comment API, with mandatory content verification to prevent contextually misplaced comments.
+This rule ensures that feedback is placed using the most appropriate GitHub comment type - line-specific comments for code-related issues and general PR comments for overarching feedback - with mandatory content verification for line-specific comments.
 </purpose>
 
 <instructions>

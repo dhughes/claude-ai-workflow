@@ -25,7 +25,23 @@
       "Bash(.claude/index-rules.sh:*)",
       "WebFetch(domain:cbea.ms)",
       "Bash(git:*)",
-      "WebFetch(domain:docs.github.com)"
+      "WebFetch(domain:docs.github.com)",
+      "Bash(-f body=\"**SUGGESTION:** Pattern Inconsistency - Mixed commit SHA examples across PR review rules\n\nThis rule uses ''a1b2c3...'' for commit_id examples, but other PR review rules in this PR use ''abc123...'' format. For consistency across all rules, standardize on one format.\n\nCurrent inconsistency:\n- This file: \\`commit_id=\"\"a1b2c3...\"\"\\`\n- Other files: \\`commit_id=\"\"abc123...\"\"\\`\n\nSuggested fix: Use consistent \\`commit_id=\"\"{sha}\"\"\\` placeholder or standardize on one example format across all rules to avoid confusion.\" )",
+      "Bash(-f commit_id=\"d489d9e3184241c5a4d0c98ba748d2f2b1a074eb\" )",
+      "Bash(-f path=\".claude/rules/gh-pr-review-always-categorize-comment-severity.rule.md\" )",
+      "Bash(-f side=\"RIGHT\" )",
+      "Bash(-F line=154)",
+      "Bash(-f body=\"**BLOCKING:** Logic Error - Hardcoded PR number in GitHub API examples will cause failures\n\nSame issue as in severity rule - hardcoded PR number ''45'' instead of parameterized value.\n\nCurrent code:\n\\`\\`\\`bash\ngh api repos/:owner/:repo/pulls/45/comments -X POST\n\\`\\`\\`\n\nRequired fix:\n\\`\\`\\`bash  \ngh api repos/:owner/:repo/pulls/{number}/comments -X POST\n\\`\\`\\`\n\nAll GitHub API examples should use \\`{number}\\` placeholder to match the template pattern established in other sections.\" )",
+      "Bash(-f commit_id=\"d489d9e3184241c5a4d0c98ba748d2f2b1a074eb\" )",
+      "Bash(-f path=\".claude/rules/gh-pr-review-always-check-against-project-patterns.rule.md\" )",
+      "Bash(-f side=\"RIGHT\" )",
+      "Bash(-F line=116)",
+      "Bash(-f body=\"**BLOCKING:** Logic Error - Hardcoded PR number in GitHub API examples will cause failures\n\nSame systemic issue - hardcoded PR number ''45'' instead of parameterized value.\n\nCurrent code:\n\\`\\`\\`bash\ngh api repos/:owner/:repo/pulls/45/comments -X POST\n\\`\\`\\`\n\nRequired fix:\n\\`\\`\\`bash\ngh api repos/:owner/:repo/pulls/{number}/comments -X POST\n\\`\\`\\`\n\nThis pattern needs to be fixed across all 11 PR review rule files to prevent failures when the rules are followed.\" )",
+      "Bash(-f commit_id=\"d489d9e3184241c5a4d0c98ba748d2f2b1a074eb\" )",
+      "Bash(-f path=\".claude/rules/gh-pr-review-always-comment-on-logic-issues.rule.md\" )",
+      "Bash(-f side=\"RIGHT\" )",
+      "Bash(-F line=148)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }
