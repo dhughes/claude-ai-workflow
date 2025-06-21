@@ -22,7 +22,7 @@
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:docs.anthropic.com)",
       "Bash(awk:*)",
-      "Bash(.claude/index-rules.sh:*)",
+      "Bash(.claude/scripts/:*)",
       "WebFetch(domain:cbea.ms)",
       "Bash(git:*)",
       "WebFetch(domain:docs.github.com)"

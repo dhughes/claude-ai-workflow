@@ -18,7 +18,7 @@ This foundational meta-rule ensures that the rule index is always loaded in memo
 Before taking ANY action, you MUST verify the rule index is loaded:
 
 1. **Check if index is in memory**: Determine if you have the current rule index available
-2. **Load index if missing**: If not loaded, immediately run `.claude/index-rules.sh`
+2. **Load index if missing**: If not loaded, immediately run `.claude/scripts/index-rules.sh`
 3. **Parse index into memory**: Create in-memory map of patterns → rules, contexts → rules, actions → rules
 4. **Block action until loaded**: Do not proceed with any action until index is available
 5. **Verify index completeness**: Ensure index contains expected rule count and structure
@@ -35,7 +35,7 @@ Before taking ANY action, you MUST verify the rule index is loaded:
 
 **If answer to ANY is NO, must reload index:**
 ```bash
-.claude/index-rules.sh
+.claude/scripts/index-rules.sh
 ```
 
 **Index load success criteria:**
@@ -52,7 +52,7 @@ Before taking ANY action, you MUST verify the rule index is loaded:
 ```
 IF attempting_any_action:
     IF NOT rule_index_loaded_in_memory:
-        EXECUTE ".claude/index-rules.sh"
+        EXECUTE ".claude/scripts/index-rules.sh"
         PARSE index_output into memory_structures
         VERIFY index_completeness
         IF index_load_failed:
@@ -101,7 +101,7 @@ Starting any action with proper index check:
 # Mental check: Do I have rule mappings? NO
 # Therefore, must load index first:
 
-.claude/index-rules.sh
+.claude/scripts/index-rules.sh
 # Parse output into memory structures
 # Now can proceed with action knowing rules are accessible
 ```

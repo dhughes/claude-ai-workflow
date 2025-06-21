@@ -19,7 +19,7 @@ After creating or editing ANY rule file (*.rule.md), you MUST:
 
 1. IMMEDIATELY run the rule indexing command:
    ```bash
-   .claude/index-rules.sh
+   .claude/scripts/index-rules.sh
    ```
 
 2. VERIFY the indexing completed successfully by checking the output
@@ -58,7 +58,7 @@ The reindexing MUST happen:
 After creating a new rule:
 ```bash
 # Just finished creating new-rule.rule.md
-.claude/index-rules.sh
+.claude/scripts/index-rules.sh
 # Index updated successfully, found 8 rules
 # Now continuing with other work...
 ```
@@ -66,7 +66,7 @@ After creating a new rule:
 After editing an existing rule:
 ```bash
 # Just finished editing existing-rule.rule.md to fix typo
-.claude/index-rules.sh
+.claude/scripts/index-rules.sh
 # Index updated successfully, found 8 rules
 # Continue with next task...
 ```
@@ -74,7 +74,7 @@ After editing an existing rule:
 After updating rule version:
 ```bash
 # Just updated version in rule frontmatter
-.claude/index-rules.sh
+.claude/scripts/index-rules.sh
 # Index updated, version change reflected
 # Ready for next action...
 ```
@@ -107,7 +107,7 @@ Partial reindexing:
 
 <validation>
 After reindexing, verify:
-- [ ] The .claude/index-rules.sh command completed without errors
+- [ ] The .claude/scripts/index-rules.sh command completed without errors
 - [ ] The output shows the correct number of rules indexed
 - [ ] Any new rules appear in the index output
 - [ ] Modified rules show updated information

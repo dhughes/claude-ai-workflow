@@ -106,7 +106,7 @@ After creating rule files:
 
 # Load and follow each after-rule:
 Read file_path=".claude/rules/rules-indexing-always-reload-after-rule-changes.rule.md"
-# Execute: .claude/index-rules.sh
+# Execute: .claude/scripts/index-rules.sh
 
 Read file_path=".claude/rules/git-workflow-always-commit-after-completing-batch-work.rule.md"  
 # Execute: git add, git commit, git push
