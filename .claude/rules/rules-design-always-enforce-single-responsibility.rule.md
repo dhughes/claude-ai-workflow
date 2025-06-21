@@ -4,31 +4,27 @@ applies_to:
   - contexts: ["rules", "meta", "design", "validation"]
   - actions: ["creating"]
 timing: "before"
-summary: "Enforce single responsibility - each rule handles one concept with related actions allowed"
-version: "2.1.0"
+action: "Enforce single responsibility - each rule handles one concept with related actions allowed"
 ---
-
-# Rule: Always Enforce Single Responsibility in Rule Design
 
 <purpose>
 This rule ensures that each rule file addresses exactly one condition with one specific outcome, preventing complex multi-conditional rules that are hard to understand, maintain, and debug. It enforces the single responsibility principle for rule design.
 </purpose>
 
+<condition>
+When creating any new rule file
+</condition>
+
 <instructions>
 Before creating ANY new rule, you MUST validate that it follows single responsibility:
 
-1. ANALYZE the proposed rule for:
+1. ANALYZE the proposed rule for violations:
    - Multiple conditions (if X OR if Y)
    - Multiple outcomes (do A, but if Z then do B)
    - Multiple DISTINCT operations (commit AND push, create AND merge)
    - Complex branching logic within a single rule
    - Multiple unrelated contexts or actions
    - Any use of "AND" or "OR" connecting different concepts in rule summaries
-
-   ACCEPTABLE combinations:
-   - File operations: create AND edit (same concept - modifying file contents)
-   - Related git operations within same workflow phase
-   - Similar actions that are conceptually the same
 
 2. IF the rule violates single responsibility:
    - STOP immediately - do not create the rule
@@ -43,7 +39,11 @@ Before creating ANY new rule, you MUST validate that it follows single responsib
    - One consistent context throughout
 </instructions>
 
-<single_responsibility_criteria>
+<detail>
+CRITICAL: This rule is MANDATORY and cannot be overridden
+CRITICAL: No exceptions for "convenience" or "related" functionality
+CRITICAL: Always prefer multiple focused rules over one complex rule
+
 A rule has single responsibility when:
 - It addresses ONE specific situation or trigger
 - It provides ONE clear set of instructions
@@ -59,110 +59,16 @@ A rule violates single responsibility when:
 - It requires complex decision trees within the rule
 - It handles DISTINCT operations (commit AND push are different concepts)
 - The summary contains "and" connecting different concepts
-- It tries to enforce multiple unrelated behaviors
 
 ACCEPTABLE patterns (conceptually similar operations):
 - File operations: create AND edit (both modify file contents)
 - Related workflow actions that are part of the same logical operation
 - Actions that are conceptually identical but triggered at different times
-</single_responsibility_criteria>
 
-<examples>
-<good_single_responsibility>
-✅ "Always use --author flag for git commits"
-- One condition: git commits
-- One outcome: use --author flag
-- One topic: commit attribution
-
-✅ "Always create branch before file modifications on main"
-- One condition: modifying files on main branch
-- One outcome: create new branch first
-- One topic: branch creation workflow
-
-✅ "Always reload rule index after creating rules"
-- One condition: after creating rule files
-- One outcome: run index command
-- One topic: rule index maintenance
-</good_single_responsibility>
-
-<bad_multiple_responsibility>
-❌ "Never commit or push directly to main branch"
-- Multiple actions: commit AND push
-- Multiple git operations: mixing commit and push concerns
-- Multiple enforcement points: before_commit AND before_push
-
-❌ "Use --author for commits, but if on main branch create new branch first, and if pushing then set upstream"
-- Multiple conditions: commits, main branch, pushing
-- Multiple outcomes: attribution, branching, upstream
-- Multiple topics: mixing commit, branch, and push concerns
-
-❌ "For Python files use pytest, but for JavaScript use Jest, and for documentation use spell check"
-- Multiple conditions: different file types
-- Multiple outcomes: different testing frameworks
-- Multiple topics: mixing language-specific tooling
-
-❌ "Always commit after work, but push only if network available, and create PR if on feature branch"
-- Multiple conditions: after work, network status, branch type
-- Multiple outcomes: commit, conditional push, conditional PR
-- Multiple topics: mixing commit, push, and PR workflows
-
-✅ "Create or edit files only on feature branches"
-- Acceptable: create AND edit are conceptually the same (modifying file contents)
-- Single concept: file modification workflow
-</bad_multiple_responsibility>
-
-<violation_response>
 When a proposed rule violates single responsibility:
-
 1. STOP rule creation immediately
-2. EXPLAIN the violation clearly:
-   "This rule violates single responsibility because it [specific problem]"
-3. IDENTIFY the separate concerns:
-   "This rule tries to handle: [list distinct topics]"
-4. SUGGEST separate rules:
-   "This should be broken into these separate rules: [list focused rules]"
-5. ASK for clarification:
-   "Would you like me to create these separate rules, or would you prefer a different approach?"
-</violation_response>
-
-<rule_breakdown_examples>
-Instead of complex rule, create separate focused rules:
-
-BAD: "Git workflow automation rule"
-- Handles branching, committing, pushing, attribution
-
-GOOD: Four separate rules:
-1. "Always create branch before file modifications"
-2. "Always commit after completing tasks"  
-3. "Always push after commits"
-4. "Always use proper attribution in commits"
-
-BAD: "Testing configuration rule"
-- Different frameworks for different languages
-
-GOOD: Separate rules per language:
-1. "Always use pytest for Python testing"
-2. "Always use Jest for JavaScript testing"
-3. "Always use RSpec for Ruby testing"
-</rule_breakdown_examples>
-
-<validation_checklist>
-Before creating any rule, verify:
-- [ ] Rule has exactly ONE clear condition/trigger
-- [ ] Rule has exactly ONE outcome/instruction set
-- [ ] Rule focuses on ONE specific topic/domain
-- [ ] Rule doesn't contain "OR" logic for different scenarios
-- [ ] Rule doesn't branch into multiple different behaviors
-- [ ] Rule can be summarized in one simple sentence
-- [ ] Rule doesn't mix unrelated contexts
-- [ ] If rule seems complex, consider if it should be multiple rules
-</validation_checklist>
-
-<enforcement>
-This rule is MANDATORY and cannot be overridden:
-- No exceptions for "convenience" or "related" functionality
-- No combining rules "because they're similar"
-- No complex conditional logic within rules
-- Always prefer multiple focused rules over one complex rule
-- When in doubt, break it into separate rules
-</enforcement>
+2. EXPLAIN the violation clearly
+3. IDENTIFY the separate concerns
+4. SUGGEST separate rules
+5. ASK for clarification
+</detail>
