@@ -22,10 +22,12 @@
       "WebFetch(domain:docs.anthropic.com)",
       "WebFetch(domain:docs.anthropic.com)",
       "Bash(awk:*)",
-      "Bash(.claude/scripts/:*)",
       "WebFetch(domain:cbea.ms)",
       "Bash(git:*)",
-      "WebFetch(domain:docs.github.com)"
+      "WebFetch(domain:docs.github.com)",
+      "Bash(chmod:*)",
+      "Bash(.claude/scripts/index-rules.sh:*)",
+      "Bash(.claude/scripts/pr-file-comments.sh:*)"
     ],
     "deny": []
   }
